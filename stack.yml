@@ -1,0 +1,59 @@
+name: odoo-buildable
+icon: odoo
+title: Odoo (buildable)
+# A variant of the Odoo stack: the catalog suggests them to each other.
+variantOf: odoo
+variant: Buildable
+variantDescription: >-
+  Choose this when you want your own or community modules: keep them and their
+  Python packages in a Git repository, and Wodby builds Odoo with them.
+
+services:
+- name: odoo
+  title: Odoo
+  service: odoo-buildable
+  required: true
+  volumes:
+  - name: filestore
+    size: 20
+  links:
+  - name: db
+    service: postgres
+  - name: filestore
+    service: filestore-nfs
+  - name: sendmail
+    service: opensmtpd
+
+# The public entry point: it sends live updates to Odoo's gevent port.
+- name: nginx
+  title: Nginx
+  service: odoo-nginx
+  required: true
+  main: true
+  links:
+  - name: backend
+    service: odoo
+
+- name: postgres
+  title: PostgreSQL
+  service: postgres
+  required: true
+  volumes:
+  - name: data
+    size: 20
+
+# Uploaded files and sessions, shared by every Odoo replica.
+- name: filestore-nfs
+  title: Odoo data NFS storage
+  service: nfs-provisioner
+  required: true
+  volumes:
+  - name: data
+    size: 25
+
+# Odoo can also send email through a mail server set up in its settings.
+- name: opensmtpd
+  title: OpenSMTPD
+  service: opensmtpd
+  required: false
+  disabled: true
