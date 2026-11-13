@@ -1,5 +1,6 @@
 name: odoo-buildable
 icon: odoo
+docs: https://wodby.com/docs/2.0/stacks/catalog/odoo-buildable/
 title: Odoo (buildable)
 # A variant of the Odoo stack: the catalog suggests them to each other.
 variantOf: odoo
