@@ -10,16 +10,25 @@ composition for buildable Odoo.
 
 ## Stack contract
 
+- [Odoo (buildable) stack on Wodby](https://wodby.com/stacks/odoo-buildable)
 - [Browse Wodby application stacks](https://wodby.com/stacks)
+- [Odoo (buildable) stack guide](https://wodby.com/docs/2.0/stacks/catalog/odoo-buildable/)
 - [Wodby stack documentation](https://wodby.com/docs/2.0/stacks/)
 - [Stack manifest reference](https://wodby.com/docs/2.0/stacks/template/)
 
+## Start from a boilerplate
+
+Use one of the compatible boilerplates exposed by this stack's services to
+start with Wodby CI build configuration:
+
+- [Vanilla Odoo](https://github.com/wodby/odoo-boilerplate)
+
 ## Service definitions
 
-- [Buildable Odoo service](https://github.com/wodby/service-odoo-buildable)
+- [Odoo (buildable) service](https://github.com/wodby/service-odoo-buildable)
 - [Nginx (Odoo) service](https://github.com/wodby/service-odoo-nginx)
 - [PostgreSQL service](https://github.com/wodby/service-postgres)
-- [NFS provisioner service](https://github.com/wodby/service-nfs-provisioner)
+- [Ganesha NFS provisioner service](https://github.com/wodby/service-nfs-provisioner)
 - [OpenSMTPD service](https://github.com/wodby/service-opensmtpd)
 
 ## What's included
@@ -27,7 +36,7 @@ composition for buildable Odoo.
 | Component / service | Default configuration |
 | --- | --- |
 | Odoo<br>`odoo` | required; enabled by default; volumes: `filestore` 20 GB; links: `db` → `postgres`, `filestore` → `filestore-nfs`, `sendmail` → `opensmtpd` |
-| Nginx<br>`nginx` | required; enabled by default; main; links: `backend` → `odoo` |
+| Nginx<br>`nginx` | required; enabled by default; links: `backend` → `odoo` |
 | PostgreSQL<br>`postgres` | required; enabled by default; volumes: `data` 20 GB |
 | Odoo data NFS storage<br>`filestore-nfs` | required; enabled by default; volumes: `data` 25 GB |
 | OpenSMTPD<br>`opensmtpd` | optional; disabled by default |
